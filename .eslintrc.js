@@ -22,5 +22,8 @@ module.exports = {
     semi: [2, 'never'],
     'react/jsx-filename-extension': 'off',
     'react/jsx-one-expression-per-line': 'off',
+    'react/function-component-definition': 'off',
+    'class-methods-use-this': 'off',
+    'no-console': 'off',
   },
 }

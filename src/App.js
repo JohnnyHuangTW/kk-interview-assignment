@@ -1,19 +1,26 @@
-import logo from './logo.svg'
+import { useCallback, useEffect } from 'react'
 import './App.css'
+import VideoList from './components/VideoList'
+import googleAPI from './service/googleApi'
 
-function App() {
+const App = () => {
+  const appInit = useCallback(async () => {
+    googleAPI.init()
+    // googleAPI.authenticate().then((
+    //   () => console.log('success'),
+    //   (err) => console.error(err)
+    // ))
+  })
+
+  useEffect(() => {
+    appInit()
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
+    <div>
+      <VideoList />
     </div>
+
   )
 }
 
