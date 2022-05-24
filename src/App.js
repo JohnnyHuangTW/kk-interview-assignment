@@ -1,26 +1,17 @@
-import { useCallback, useEffect } from 'react'
 import './App.css'
 import VideoList from './components/VideoList'
-import googleAPI from './service/googleApi'
+import { useGoogleApi } from './useGoogleApi'
 
 const App = () => {
-  const appInit = useCallback(async () => {
-    googleAPI.init()
-    // googleAPI.authenticate().then((
-    //   () => console.log('success'),
-    //   (err) => console.error(err)
-    // ))
-  })
-
-  useEffect(() => {
-    appInit()
-  })
+  const googleApi = useGoogleApi()
 
   return (
     <div>
+      Login: {String(googleApi.isSignIn)}<br />
+      <button onClick={googleApi.authenticate}>login</button><br />
+      <button onClick={googleApi.signOut}>logout</button>
       <VideoList />
     </div>
-
   )
 }
 

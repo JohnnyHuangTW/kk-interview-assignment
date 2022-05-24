@@ -4,9 +4,10 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'plugin:react/recommended',
     'airbnb',
+    'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -25,5 +26,10 @@ module.exports = {
     'react/function-component-definition': 'off',
     'class-methods-use-this': 'off',
     'no-console': 'off',
+    'import/prefer-default-export': 'off',
+    'object-curly-newline': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'no-unused-vars': 'warn',
+    'react/button-has-type': 'off',
   },
 }
