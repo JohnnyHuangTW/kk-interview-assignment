@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import {
   AppBar,
   IconButton,
@@ -10,13 +11,11 @@ import {
   Divider,
   ListItemText,
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
 import AccountCircle from '@mui/icons-material/AccountCircle'
-import React, { useState } from 'react'
 import { useGoogleAuth } from './hooks'
 
 const Header = () => {
-  const { isSignIn, userInfo, authenticate, signOut } = useGoogleAuth()
+  const { isSignIn, userInfo, signOut } = useGoogleAuth()
   const [anchorEl, setAnchorEl] = useState(null)
 
   console.log(userInfo)

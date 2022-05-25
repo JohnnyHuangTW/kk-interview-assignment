@@ -1,5 +1,10 @@
+import { Box } from '@mui/material'
+
 const VideoList = () => (
-  <div>VideoList</div>
+  <Box>
+    video list
+
+  </Box>
 )
 
 export default VideoList
