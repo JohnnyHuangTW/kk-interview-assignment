@@ -1,3 +1,6 @@
+
+/* NOTE: use prefix "custom" for extending MUI components css  */
+
 .custom-btn-icon-align-left {
     position: absolute;
     left: 1rem;

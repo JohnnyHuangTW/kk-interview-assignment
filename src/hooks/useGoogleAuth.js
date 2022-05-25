@@ -21,7 +21,10 @@ const useGoogleAuth = () => {
   const loadClient = useCallback(() => {
     gapi.client.setApiKey(GAPI_API_KEY)
     return gapi.client.load(GAPI_DISCOVERY).then(
-      () => console.log('%cClient Ready', 'font-weight: bold; color: #3f4e60'),
+      () => {
+        console.log('%cClient Ready', 'font-weight: bold; color: #3f4e60')
+        setError('')
+      },
       (err) => setError(err),
     )
   }, [])
@@ -50,6 +53,8 @@ const useGoogleAuth = () => {
 
         // listen for sign in status changes
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus)
+
+        setError('')
       })
       .catch((err) => setError(err.details))
   }, [updateSignInStatus])
@@ -59,7 +64,10 @@ const useGoogleAuth = () => {
       .getAuthInstance()
       .signIn({ scope: GAPI_SCOPE })
       .then(
-        () => console.log('%cSigned In Successfully', 'font-weight: bold; color: #3f4e60'),
+        () => {
+          console.log('%cSigned In Successfully', 'font-weight: bold; color: #3f4e60')
+          setError('')
+        },
         () => setError('Login failed'),
       )
   }, [])
@@ -68,7 +76,10 @@ const useGoogleAuth = () => {
     gapi.auth2
       .getAuthInstance()
       .signOut()
-      .then(() => setIsSignIn(false))
+      .then(() => {
+        setIsSignIn(false)
+        setUserInfo(null)
+      })
   }, [])
 
   const getUserInfo = useCallback(() => {

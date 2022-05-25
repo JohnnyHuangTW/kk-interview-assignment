@@ -31,5 +31,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-unused-vars': 'warn',
     'react/button-has-type': 'off',
+    'max-len': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 }

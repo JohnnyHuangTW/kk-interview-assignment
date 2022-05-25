@@ -5,10 +5,8 @@ import { Button, CssBaseline } from '@mui/material'
 import { CHANNEL_NAME } from './constants'
 import { useGoogleAuth, useYoutubeApi } from './hooks'
 import theme from './theme'
-// pages
-import SignInPage from './pages/SignInPage'
-// components
-import VideoList from './components/VideoList'
+import SignInPage from './SignInPage'
+import Header from './Header'
 
 const App = () => {
   const { isSignIn, authenticate, signOut } = useGoogleAuth()
@@ -29,12 +27,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Header />
       {!isSignIn && <SignInPage />}
-      {isSignIn && (
-        <div>
-          <Button onClick={signOut}>log out</Button>
-        </div>
-      )}
+
     </ThemeProvider>
   )
 }
