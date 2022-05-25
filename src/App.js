@@ -1,7 +1,13 @@
 import './App.css'
+import { ThemeProvider } from '@mui/material/styles'
 import { useQuery } from 'react-query'
+import { Button, CssBaseline } from '@mui/material'
 import { CHANNEL_NAME } from './constants'
 import { useGoogleAuth, useYoutubeApi } from './hooks'
+import theme from './theme'
+// pages
+import SignInPage from './pages/SignInPage'
+// components
 import VideoList from './components/VideoList'
 
 const App = () => {
@@ -21,14 +27,15 @@ const App = () => {
   })
 
   return (
-    <div>
-      Login: {String(isSignIn)}
-      <br />
-      <button onClick={authenticate}>login</button>
-      <br />
-      <button onClick={signOut}>logout</button>
-      <VideoList />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {!isSignIn && <SignInPage />}
+      {isSignIn && (
+        <div>
+          <Button onClick={signOut}>log out</Button>
+        </div>
+      )}
+    </ThemeProvider>
   )
 }
 

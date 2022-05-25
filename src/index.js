@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './assets/css/reset.css'
-import './index.css'
+// FIXME normalize.css replaced with MUI CssBaseLine
+// import './assets/css/reset.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import App from './App'
