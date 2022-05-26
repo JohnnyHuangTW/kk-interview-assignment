@@ -47,12 +47,13 @@ const useYoutubeApi = () => {
           const { items, nextPageToken, prevPageToken, pageInfo } = response.result
           // sort out items for only the information we need
           const videoItems = items?.map((video) => {
-            const { title, description, resourceId, thumbnails } = video.snippet
+            const { title, description, resourceId, thumbnails, publishedAt } = video.snippet
             return {
               videoId: resourceId.videoId,
               title,
               description,
               thumbnails,
+              publishedAt,
             }
           })
           // for fetch videos statistics api
@@ -87,12 +88,13 @@ const useYoutubeApi = () => {
           // sort out items for only the information we need
           const videoItems = items?.map((video) => {
             const { snippet, id } = video
-            const { title, description, thumbnails } = snippet
+            const { title, description, thumbnails, publishedAt } = snippet
             return {
               videoId: id.videoId,
               title,
               description,
               thumbnails,
+              publishedAt,
             }
           })
 
@@ -138,8 +140,8 @@ const useYoutubeApi = () => {
     async ({ channelId, pageToken = '', itemPerPage = '10' } = {}) => {
       try {
         const channelVideos = await fetchChannelVideosByDate({ channelId, pageToken, itemPerPage })
-        const { videoItems } = channelVideos ?? []
-        const videoIds = videoItems.map((video) => video.videoId)
+        const { videoItems } = channelVideos ?? {}
+        const videoIds = videoItems?.map((video) => video.videoId)
         const videoInfoList = await fetchVideosInfoByIds(videoIds)
 
         // transform array to object by videoId

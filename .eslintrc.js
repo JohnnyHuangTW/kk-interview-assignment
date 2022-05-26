@@ -33,5 +33,8 @@ module.exports = {
     'react/button-has-type': 'off',
     'max-len': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/forbid-prop-types': 'off',
+    'react/require-default-props': 'off',
+    'prefer-destructuring': 'off',
   },
 }
