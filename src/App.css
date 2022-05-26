@@ -1,13 +1,28 @@
 #root {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
-
 
 /* NOTE: use prefix "custom" for extending MUI components css  */
 .custom-btn-icon-align-left {
-    position: absolute;
-    left: 1rem;
+  position: absolute;
+  left: 1rem;
+}
+
+.custom-table-thumbnail-wrapper {
+  position: relative;
+  transform: scale(0.9);
+  cursor: pointer;
+}
+.custom-table-thumbnail-wrapper > svg {
+  position: absolute;
+  top: 30px;
+  left: 45px;
+  opacity: 0;
+  color: #fff;
+  transition: opacity 0.2s;
+}
+.custom-table-thumbnail-wrapper:hover > svg {
+    opacity: 0.8;
 }

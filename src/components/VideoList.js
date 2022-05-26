@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
+import PlayCircleFilledOutlinedIcon from '@mui/icons-material/PlayCircleFilledOutlined'
 import { useEffect, useState } from 'react'
 
 const renderThumbnail = (params) => {
-  const thumbnail = params.row.thumbnails.default
-  const title = params.row.title
+  const { thumbnails, title, videoId } = params.row
+  const thumbnail = thumbnails.default
+  const videoHref = `https://www.youtube.com/watch?v=${videoId}`
   return (
-    <Box sx={{ p: 1 }}>
+    <a className="custom-table-thumbnail-wrapper" href={videoHref} target="_blank" rel="noreferrer">
+      <PlayCircleFilledOutlinedIcon fontSize="large" />
       <img src={thumbnail.url} width={thumbnail.width} height={thumbnail.height} alt={title} />
-    </Box>
+    </a>
   )
 }
 
