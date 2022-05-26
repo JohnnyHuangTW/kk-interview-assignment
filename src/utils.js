@@ -25,3 +25,14 @@ export const numberWithCommas = (number) => {
  * @returns h:mm:ss
  */
 export const convertYouTubeDuration = (youtubeDuration) => moment.duration(youtubeDuration).format('h:mm:ss', { trim: false })
+
+/**
+ * 將超過萬的數字縮小成中文 xx.xx萬
+ * @param {number} number
+ * @returns 縮小數字字串
+ */
+export const shortenNum = (number) => {
+  if (!number) return ''
+  if (number < 10000) return String(number)
+  return `${(Math.round((number / 10000) * 100)) / 100}萬`
+}

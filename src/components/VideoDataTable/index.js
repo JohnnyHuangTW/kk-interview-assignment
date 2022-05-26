@@ -4,10 +4,26 @@ import { Box } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import columns from './columns'
 
-const VideoDataTable = ({ data = [], isLoading, pageInfo, onNextPageClick, onPrevPageClick }) => {
+const VideoDataTable = ({
+  data = [],
+  isLoading,
+  totalCount = 0,
+  itemsPerPage = 10,
+  onNextPageClick,
+  onPrevPageClick,
+}) => {
   const [currentPage, setCurrentPage] = useState(0)
+  const [totalCountState, setTotalCountState] = useState(totalCount)
+
+  useEffect(() => {
+    setTotalCountState((prev) => (totalCount || prev))
+  }, [totalCount])
 
   const handlePageChange = (newPage) => {
+    // prevent doing any actions while still fetching data
+    // because we need pageToken from GAPI to get the new data
+    if (isLoading) return
+
     if (newPage > currentPage) onNextPageClick()
     else onPrevPageClick()
 
@@ -26,12 +42,13 @@ const VideoDataTable = ({ data = [], isLoading, pageInfo, onNextPageClick, onPre
           paginationMode="server"
           columns={columns}
           rows={data}
-          rowCount={pageInfo?.totalResults || 0}
+          rowCount={totalCountState || 0}
           getRowId={(row) => row.videoId}
           page={currentPage}
-          pageSize={pageInfo?.resultsPerPage || 10}
-          rowsPerPageOptions={[pageInfo?.resultsPerPage || 10]}
+          pageSize={itemsPerPage}
+          rowsPerPageOptions={[itemsPerPage]}
           onPageChange={handlePageChange}
+          loading={isLoading}
         />
       </Box>
     </Box>
@@ -41,7 +58,8 @@ const VideoDataTable = ({ data = [], isLoading, pageInfo, onNextPageClick, onPre
 VideoDataTable.propTypes = {
   data: PropTypes.array,
   isLoading: PropTypes.bool,
-  pageInfo: PropTypes.object,
+  totalCount: PropTypes.number,
+  itemsPerPage: PropTypes.number,
   onNextPageClick: PropTypes.func,
   onPrevPageClick: PropTypes.func,
 }

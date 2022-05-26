@@ -34,12 +34,12 @@ const useYoutubeApi = () => {
 
   // query video list by playlistId
   const fetchVideosByPlaylistId = useCallback(
-    ({ playlistId, pageToken = '', itemPerPage = '10' } = {}) => {
+    ({ playlistId, pageToken = '', itemsPerPage = '10' } = {}) => {
       const requestOptions = {
         playlistId,
         part: ['snippet'],
         pageToken,
-        maxResults: itemPerPage,
+        maxResults: itemsPerPage,
       }
       return gapi.client.youtube.playlistItems
         .list(requestOptions)
@@ -73,12 +73,12 @@ const useYoutubeApi = () => {
 
   // query videos by channelId and sorted by date
   const fetchChannelVideosByDate = useCallback(
-    ({ channelId, pageToken = '', itemPerPage = '10' } = {}) => {
+    ({ channelId, pageToken = '', itemsPerPage = '10' } = {}) => {
       const requestOptions = {
         channelId,
         part: ['snippet'],
         pageToken,
-        maxResults: itemPerPage,
+        maxResults: itemsPerPage,
         order: 'date',
       }
       return gapi.client.youtube.search
@@ -137,9 +137,9 @@ const useYoutubeApi = () => {
 
   // query channel videos by date with details
   const fetchSortedChannelVideos = useCallback(
-    async ({ channelId, pageToken = '', itemPerPage = '10' } = {}) => {
+    async ({ channelId, pageToken = '', itemsPerPage = '10' } = {}) => {
       try {
-        const channelVideos = await fetchChannelVideosByDate({ channelId, pageToken, itemPerPage })
+        const channelVideos = await fetchChannelVideosByDate({ channelId, pageToken, itemsPerPage })
         if (!channelVideos) throw new Error('cannot find the channel videos')
 
         const { videoItems } = channelVideos ?? {}

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { CHANNEL_NAME } from '../../constants'
 import { useYoutubeApi } from '../../hooks'
 import { VideoDataTable } from '../../components'
+import { shortenNum } from '../../utils'
 
 const MainPage = () => {
   const { fetchChannelInfoByName, fetchSortedChannelVideos } = useYoutubeApi()
@@ -20,16 +21,16 @@ const MainPage = () => {
     'channel',
     () => fetchChannelInfoByName(CHANNEL_NAME),
     // FIXME
-    { enabled: false },
+    // { enabled: false },
   )
 
   const { data, isLoading: isFetchingVideos } = useQuery(
     ['videos', pageToken],
     () => fetchSortedChannelVideos({ channelId: channel?.id, pageToken }),
     {
-      //   enabled: !!channel?.id,
+      // enabled: !!channel?.id,
       // FIXME
-      enabled: false,
+      // enabled: false,
     },
   )
 
@@ -62,22 +63,21 @@ const MainPage = () => {
               {channel.title}
             </Typography>
             <Typography component="label" sx={{ typography: 'subtitle', color: 'text.secondary' }}>
-              {channel.subscriberCount} 位訂閱者
+              {(shortenNum(channel.subscriberCount))} 位訂閱者
             </Typography>
           </Box>
         </Box>
       )}
 
-      <Box sx={{ height: 100, display: 'flex' }}>test</Box>
-
       <VideoDataTable
         // FIXME
         // eslint-disable-next-line no-use-before-define
-        data={videoItemsMock}
+        // data={videoItemsMock}
         // eslint-disable-next-line no-use-before-define
-        pageInfo={pageInfoMock}
-        // data={videoItems}
-        // pageInfo={pageInfo}
+        // totalCount={pageInfoMock.totalResults}
+        itemsPerPage={10}
+        data={videoItems}
+        totalCount={pageInfo?.totalResults}
         onNextPageClick={() => setPageToken(nextPageToken)}
         onPrevPageClick={() => setPageToken(prevPageToken)}
         isLoading={isFetchingVideos}
