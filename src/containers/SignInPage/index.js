@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Box, Avatar, Typography, Link, Button, Paper } from '@mui/material'
 import { LockClockOutlined, Google } from '@mui/icons-material'
-import { useGoogleAuth } from './hooks'
+import { useGoogleAuth } from '../../hooks'
 
 const Copyright = (props) => (
   <Typography variant="body2" color="text.secondary" align="center" {...props}>

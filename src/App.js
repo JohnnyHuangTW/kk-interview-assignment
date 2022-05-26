@@ -1,11 +1,9 @@
 import './App.css'
 import { ThemeProvider } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
-import { useGoogleAuth } from './hooks'
 import theme from './theme'
-import SignInPage from './SignInPage'
-import Header from './Header'
-import MainPage from './MainPage'
+import { useGoogleAuth } from './hooks'
+import { Header, MainPage, SignInPage } from './containers'
 
 const App = () => {
   const { isSignIn } = useGoogleAuth()
@@ -18,7 +16,6 @@ const App = () => {
       {!isSignIn && <SignInPage />}
 
       {isSignIn && <MainPage />}
-
     </ThemeProvider>
   )
 }

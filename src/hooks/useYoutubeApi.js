@@ -140,6 +140,8 @@ const useYoutubeApi = () => {
     async ({ channelId, pageToken = '', itemPerPage = '10' } = {}) => {
       try {
         const channelVideos = await fetchChannelVideosByDate({ channelId, pageToken, itemPerPage })
+        if (!channelVideos) throw new Error('cannot find the channel videos')
+
         const { videoItems } = channelVideos ?? {}
         const videoIds = videoItems?.map((video) => video.videoId)
         const videoInfoList = await fetchVideosInfoByIds(videoIds)
@@ -151,7 +153,7 @@ const useYoutubeApi = () => {
         }, {})
 
         // attach video detail to videoItems by videoId
-        const videoItemsWithDetail = videoItems.map((item) => {
+        const videoItemsWithDetail = videoItems?.map((item) => {
           const detail = videoInfoObj[item.videoId] ?? {}
           return { ...item, ...detail }
         })

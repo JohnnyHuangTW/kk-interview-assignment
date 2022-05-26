@@ -1,9 +1,9 @@
 import { Avatar, Box, Container, Typography } from '@mui/material'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
-import { CHANNEL_NAME } from './constants'
-import { useYoutubeApi } from './hooks'
-import VideoList from './components/VideoList'
+import { CHANNEL_NAME } from '../../constants'
+import { useYoutubeApi } from '../../hooks'
+import { VideoDataTable } from '../../components'
 
 const MainPage = () => {
   const { fetchChannelInfoByName, fetchSortedChannelVideos } = useYoutubeApi()
@@ -38,7 +38,7 @@ const MainPage = () => {
   const channelThumbnail = channel ? channel.thumbnails.default : {}
 
   return (
-    <Container maxWidth="lg" sx={{ height: 1 }}>
+    <Container maxWidth="lg" sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
       {/* channel information */}
       {channel && (
         <Box
@@ -68,12 +68,16 @@ const MainPage = () => {
         </Box>
       )}
 
-      <VideoList
+      <Box sx={{ height: 100, display: 'flex' }}>test</Box>
+
+      <VideoDataTable
         // FIXME
         // eslint-disable-next-line no-use-before-define
         data={videoItemsMock}
         // eslint-disable-next-line no-use-before-define
         pageInfo={pageInfoMock}
+        // data={videoItems}
+        // pageInfo={pageInfo}
         onNextPageClick={() => setPageToken(nextPageToken)}
         onPrevPageClick={() => setPageToken(prevPageToken)}
         isLoading={isFetchingVideos}

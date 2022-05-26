@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   AppBar,
   IconButton,
@@ -12,13 +12,11 @@ import {
   ListItemText,
 } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
-import { useGoogleAuth } from './hooks'
+import { useGoogleAuth } from '../../hooks'
 
 const Header = () => {
   const { isSignIn, userInfo, signOut } = useGoogleAuth()
   const [anchorEl, setAnchorEl] = useState(null)
-
-  console.log(userInfo)
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget)
