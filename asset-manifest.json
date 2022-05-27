@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kk-interview-assignment/static/css/main.0063bfdf.css",
+    "main.js": "/kk-interview-assignment/static/js/main.39a10a07.js",
+    "static/js/787.145b3157.chunk.js": "/kk-interview-assignment/static/js/787.145b3157.chunk.js",
+    "index.html": "/kk-interview-assignment/index.html",
+    "main.0063bfdf.css.map": "/kk-interview-assignment/static/css/main.0063bfdf.css.map",
+    "main.39a10a07.js.map": "/kk-interview-assignment/static/js/main.39a10a07.js.map",
+    "787.145b3157.chunk.js.map": "/kk-interview-assignment/static/js/787.145b3157.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0063bfdf.css",
+    "static/js/main.39a10a07.js"
+  ]
+}
