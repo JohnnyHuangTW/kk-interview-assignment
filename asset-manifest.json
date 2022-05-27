@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/kk-interview-assignment/static/css/main.0063bfdf.css",
-    "main.js": "/kk-interview-assignment/static/js/main.37bb5fc1.js",
-    "static/js/787.145b3157.chunk.js": "/kk-interview-assignment/static/js/787.145b3157.chunk.js",
-    "index.html": "/kk-interview-assignment/index.html",
-    "main.0063bfdf.css.map": "/kk-interview-assignment/static/css/main.0063bfdf.css.map",
-    "main.37bb5fc1.js.map": "/kk-interview-assignment/static/js/main.37bb5fc1.js.map",
-    "787.145b3157.chunk.js.map": "/kk-interview-assignment/static/js/787.145b3157.chunk.js.map"
+    "main.css": "/static/css/main.0063bfdf.css",
+    "main.js": "/static/js/main.6d756210.js",
+    "static/js/787.145b3157.chunk.js": "/static/js/787.145b3157.chunk.js",
+    "index.html": "/index.html",
+    "main.0063bfdf.css.map": "/static/css/main.0063bfdf.css.map",
+    "main.6d756210.js.map": "/static/js/main.6d756210.js.map",
+    "787.145b3157.chunk.js.map": "/static/js/787.145b3157.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0063bfdf.css",
-    "static/js/main.37bb5fc1.js"
+    "static/js/main.6d756210.js"
   ]
 }
