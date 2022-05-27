@@ -26,7 +26,10 @@ const useGoogleAuth = () => {
         setIsClientReady(true)
         setError('')
       },
-      (err) => setError(err),
+      (err) => {
+        console.error(err)
+        setError(err.details)
+      },
     )
   }, [])
 
@@ -59,7 +62,10 @@ const useGoogleAuth = () => {
 
         setError('')
       })
-      .catch((err) => setError(err.details))
+      .catch((err) => {
+        console.error(err)
+        setError(err.details)
+      })
   }, [updateSignInStatus])
 
   const authenticate = useCallback(() => {
@@ -68,7 +74,10 @@ const useGoogleAuth = () => {
       .signIn({ scope: GAPI_SCOPE })
       .then(
         () => setError(''),
-        () => setError('Login failed'),
+        () => {
+          console.error('Login failed...')
+          setError('Login failed...')
+        },
       )
   }, [])
 

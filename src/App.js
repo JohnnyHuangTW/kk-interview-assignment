@@ -6,10 +6,10 @@ import { useGoogleAuth } from './hooks'
 import { Header, MainPage, SignInPage } from './containers'
 
 const App = () => {
-  const { isSignIn, isGApiReady, isClientReady } = useGoogleAuth()
+  const { isSignIn, isGApiReady, isClientReady, error } = useGoogleAuth()
 
   // waiting for gapi initializing...
-  if (!isGApiReady) return null
+  if (!isGApiReady) return error || 'initializing gapi...'
 
   return (
     <ThemeProvider theme={theme}>
