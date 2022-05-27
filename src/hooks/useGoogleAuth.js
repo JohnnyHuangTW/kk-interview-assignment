@@ -12,7 +12,8 @@ const GAPI_API_KEY = process.env.REACT_APP_GAPI_API_KEY
 const GAPI_CLIENT_ID = process.env.REACT_APP_GAPI_CLIENT_ID
 
 const useGoogleAuth = () => {
-  const [isReady, setIsReady] = useState(false)
+  const [isGApiReady, setIsGApiReady] = useState(false)
+  const [isClientReady, setIsClientReady] = useState(false)
   const [isSignIn, setIsSignIn] = useState(false)
   const [userInfo, setUserInfo] = useState(null)
   const [error, setError] = useState('')
@@ -22,19 +23,22 @@ const useGoogleAuth = () => {
     gapi.client.setApiKey(GAPI_API_KEY)
     return gapi.client.load(GAPI_DISCOVERY).then(
       () => {
-        console.log('%cClient Ready', 'font-weight: bold; color: #3f4e60')
+        setIsClientReady(true)
         setError('')
       },
       (err) => setError(err),
     )
   }, [])
 
-  const updateSignInStatus = useCallback((signInStatus) => {
-    setIsSignIn(signInStatus)
-    console.log(`%cSign In Status Changed: ${signInStatus}`, 'font-weight: bold; color: #3f4e60')
-    // load client api if currently has signed in
-    if (signInStatus) loadClient()
-  }, [loadClient])
+  const updateSignInStatus = useCallback(
+    (signInStatus) => {
+      setIsSignIn(signInStatus)
+
+      // load client api if currently has signed in
+      if (signInStatus) loadClient()
+    },
+    [loadClient],
+  )
 
   // initialize gapi
   const initGApi = useCallback(() => {
@@ -44,12 +48,11 @@ const useGoogleAuth = () => {
         plugin_name: OAUTH2_CLIENT_NAME,
       })
       .then(() => {
-        console.log('%cGAPI Ready', 'font-weight: bold; color: #3f4e60')
-        setIsReady(true)
+        setIsGApiReady(true)
+
         // initial sign in status
         const currentSignedInStatus = gapi.auth2.getAuthInstance().isSignedIn.get()
         updateSignInStatus(currentSignedInStatus)
-        console.log(`%cInitial Sign In Status: ${currentSignedInStatus}`, 'font-weight: bold; color: #3f4e60')
 
         // listen for sign in status changes
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus)
@@ -64,10 +67,7 @@ const useGoogleAuth = () => {
       .getAuthInstance()
       .signIn({ scope: GAPI_SCOPE })
       .then(
-        () => {
-          console.log('%cSigned In Successfully', 'font-weight: bold; color: #3f4e60')
-          setError('')
-        },
+        () => setError(''),
         () => setError('Login failed'),
       )
   }, [])
@@ -78,6 +78,7 @@ const useGoogleAuth = () => {
       .signOut()
       .then(() => {
         setIsSignIn(false)
+        setIsClientReady(false)
         setUserInfo(null)
       })
   }, [])
@@ -106,14 +107,15 @@ const useGoogleAuth = () => {
 
   const values = useMemo(
     () => ({
-      isReady, // whether the gapi initial process is ready
+      isGApiReady, // whether the gapi initial process is ready
+      isClientReady, // whether client setup is ready after user signed in
       isSignIn, // sign in status
       authenticate, // sign in callback
       signOut, // sign out callback
       userInfo, // user basic profile data
       error, // error message
     }),
-    [authenticate, error, isReady, isSignIn, signOut, userInfo],
+    [authenticate, error, isClientReady, isGApiReady, isSignIn, signOut, userInfo],
   )
 
   return values

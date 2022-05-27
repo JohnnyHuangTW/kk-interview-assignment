@@ -24,5 +24,10 @@
   transition: opacity 0.2s;
 }
 .custom-table-thumbnail-wrapper:hover > svg {
-    opacity: 0.8;
+  opacity: 0.8;
+}
+
+.custom-table-no-focus-outline .MuiDataGrid-columnHeader:focus,
+.custom-table-no-focus-outline .MuiDataGrid-cell:focus {
+  outline: none !important;
 }

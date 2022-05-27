@@ -16,7 +16,7 @@ const VideoDataTable = ({
   const [totalCountState, setTotalCountState] = useState(totalCount)
 
   useEffect(() => {
-    setTotalCountState((prev) => (totalCount || prev))
+    setTotalCountState((prev) => totalCount || prev)
   }, [totalCount])
 
   const handlePageChange = (newPage) => {
@@ -34,8 +34,9 @@ const VideoDataTable = ({
     <Box sx={{ display: 'flex', height: 1, py: 1 }}>
       <Box sx={{ flexGrow: 1 }}>
         <DataGrid
-          disableColumnReorder
+          className="custom-table-no-focus-outline"
           disableSelectionOnClick
+          disableColumnReorder
           disableColumnMenu
           density="comfortable"
           pagination

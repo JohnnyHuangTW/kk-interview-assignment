@@ -20,7 +20,7 @@ const SignInPage = () => {
       component="main"
       sx={{
         display: 'flex',
-        height: '80vh',
+        height: 1,
         flexDirection: 'column',
         justifyContent: 'center',
       }}
@@ -32,7 +32,6 @@ const SignInPage = () => {
             flexDirection: 'column',
             alignItems: 'center',
             mx: 'auto',
-            mt: 8,
             p: 4,
             width: {
               xs: '80%',

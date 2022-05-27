@@ -1,7 +1,7 @@
 import moment from 'moment'
-import PlayCircleFilledOutlinedIcon from '@mui/icons-material/PlayCircleFilledOutlined'
-import { Tooltip } from '@mui/material'
-import { convertYouTubeDuration, numberWithCommas } from '../../utils'
+import PlayCircleIcon from '@mui/icons-material/PlayCircleFilledOutlined'
+import { Box, Tooltip } from '@mui/material'
+import { convertYouTubeDuration, numberWithCommas } from '../../../../utils'
 
 const renderThumbnail = (params) => {
   const { thumbnails, title, videoId } = params.row
@@ -9,7 +9,7 @@ const renderThumbnail = (params) => {
   const videoHref = `https://www.youtube.com/watch?v=${videoId}`
   return (
     <a className="custom-table-thumbnail-wrapper" href={videoHref} target="_blank" rel="noreferrer">
-      <PlayCircleFilledOutlinedIcon fontSize="large" />
+      <PlayCircleIcon fontSize="large" />
       <img src={thumbnail.url} width={thumbnail.width} height={thumbnail.height} alt={title} />
     </a>
   )
@@ -19,7 +19,7 @@ const renderTitleWithTooltip = (params) => {
   const { title } = params.row
   return (
     <Tooltip title={title} placement="bottom-start">
-      <p>{title}</p>
+      <Box sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</Box>
     </Tooltip>
   )
 }

@@ -6,7 +6,10 @@ import { useGoogleAuth } from './hooks'
 import { Header, MainPage, SignInPage } from './containers'
 
 const App = () => {
-  const { isSignIn } = useGoogleAuth()
+  const { isSignIn, isGApiReady, isClientReady } = useGoogleAuth()
+
+  // waiting for gapi initializing...
+  if (!isGApiReady) return null
 
   return (
     <ThemeProvider theme={theme}>
@@ -15,7 +18,7 @@ const App = () => {
 
       {!isSignIn && <SignInPage />}
 
-      {isSignIn && <MainPage />}
+      {isSignIn && isClientReady && <MainPage />}
     </ThemeProvider>
   )
 }
