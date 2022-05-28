@@ -5,11 +5,13 @@ import { CHANNEL_NAME } from '../../constants'
 import { useYoutubeApi } from '../../hooks'
 import VideoDataTable from './components/VideoDataTable'
 import ChannelInformation from './components/ChannelInformation'
+import VideoPlayerModal from './components/VideoPlayerModal'
 import { ChannelInformationSkeleton, VideoDataTableSkeleton } from './components/Skeleton'
 
 const MainPage = () => {
   const { fetchChannelInfoByName, fetchSortedChannelVideos } = useYoutubeApi()
   const [pageToken, setPageToken] = useState('')
+  const [selectedVideoId, setSelectedVideoId] = useState(null)
 
   const { data: channel, isLoading: isFetchingChannel } = useQuery('channel', () => fetchChannelInfoByName(CHANNEL_NAME))
 
@@ -23,7 +25,6 @@ const MainPage = () => {
 
   return (
     <Container maxWidth="lg" sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
-
       {isFetchingChannel ? (
         <>
           <ChannelInformationSkeleton />
@@ -39,10 +40,12 @@ const MainPage = () => {
             onNextPageClick={() => setPageToken(nextPageToken)}
             onPrevPageClick={() => setPageToken(prevPageToken)}
             isLoading={isFetchingVideos}
+            onVideoClick={setSelectedVideoId}
           />
         </>
       )}
 
+      <VideoPlayerModal videoId={selectedVideoId} onClose={() => setSelectedVideoId(null)} />
     </Container>
   )
 }

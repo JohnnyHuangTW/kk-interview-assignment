@@ -11,6 +11,7 @@ const VideoDataTable = ({
   itemsPerPage = 10,
   onNextPageClick,
   onPrevPageClick,
+  onVideoClick,
 }) => {
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCountState, setTotalCountState] = useState(totalCount)
@@ -41,7 +42,7 @@ const VideoDataTable = ({
           density="comfortable"
           pagination
           paginationMode="server"
-          columns={columns}
+          columns={columns(onVideoClick)}
           rows={data}
           rowCount={totalCountState || 0}
           getRowId={(row) => row.videoId}
@@ -74,6 +75,7 @@ VideoDataTable.propTypes = {
   itemsPerPage: PropTypes.number,
   onNextPageClick: PropTypes.func,
   onPrevPageClick: PropTypes.func,
+  onVideoClick: PropTypes.func.isRequired,
 }
 
 export default VideoDataTable

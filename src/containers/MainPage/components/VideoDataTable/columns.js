@@ -3,12 +3,11 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircleFilledOutlined'
 import { Box, Tooltip } from '@mui/material'
 import { convertYouTubeDuration, numberWithCommas } from '../../../../utils'
 
-const renderThumbnail = (params) => {
+const renderThumbnail = (params, onVideoClick) => {
   const { thumbnails, title, videoId } = params.row ?? {}
   const thumbnail = thumbnails?.default ?? {}
-  const videoHref = `https://www.youtube.com/watch?v=${videoId}`
   return (
-    <a className="custom-table-thumbnail-wrapper" href={videoHref} target="_blank" rel="noreferrer">
+    <a className="custom-table-thumbnail-wrapper" onClick={() => onVideoClick(videoId)}>
       <PlayCircleIcon fontSize="large" />
       <img src={thumbnail.url} width={thumbnail.width} height={thumbnail.height} alt={title} />
     </a>
@@ -30,7 +29,7 @@ const formatNumberWithComma = (params) => (params.value ? numberWithCommas(param
 
 const formatDuration = (params) => (params.value ? convertYouTubeDuration(params.value) : '')
 
-const columns = [
+const columns = (onVideoClick) => [
   {
     field: 'thumbnail',
     headerName: '截圖',
@@ -38,7 +37,7 @@ const columns = [
     sortable: false,
     headerAlign: 'center',
     align: 'center',
-    renderCell: renderThumbnail,
+    renderCell: (params) => renderThumbnail(params, onVideoClick),
   },
   {
     field: 'title',
