@@ -28,11 +28,12 @@ export const convertYouTubeDuration = (youtubeDuration) => moment.duration(youtu
 
 /**
  * 將超過萬的數字縮小成中文 xx.xx萬
- * @param {number} number
+ * @param {number | string} number
  * @returns 縮小數字字串
  */
 export const shortenNum = (number) => {
-  if (!number) return ''
-  if (number < 10000) return String(number)
-  return `${(Math.round((number / 10000) * 100)) / 100}萬`
+  const n = Number(number)
+  if (!n) return ''
+  if (n < 10000) return String(n)
+  return `${(Math.round((n / 10000) * 100)) / 100}萬`
 }

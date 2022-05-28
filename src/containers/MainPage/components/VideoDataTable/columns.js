@@ -4,8 +4,8 @@ import { Box, Tooltip } from '@mui/material'
 import { convertYouTubeDuration, numberWithCommas } from '../../../../utils'
 
 const renderThumbnail = (params) => {
-  const { thumbnails, title, videoId } = params.row
-  const thumbnail = thumbnails.default
+  const { thumbnails, title, videoId } = params.row ?? {}
+  const thumbnail = thumbnails?.default ?? {}
   const videoHref = `https://www.youtube.com/watch?v=${videoId}`
   return (
     <a className="custom-table-thumbnail-wrapper" href={videoHref} target="_blank" rel="noreferrer">
@@ -16,7 +16,7 @@ const renderThumbnail = (params) => {
 }
 
 const renderTitleWithTooltip = (params) => {
-  const { title } = params.row
+  const { title } = params.row ?? {}
   return (
     <Tooltip title={title} placement="bottom-start">
       <Box sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{title}</Box>

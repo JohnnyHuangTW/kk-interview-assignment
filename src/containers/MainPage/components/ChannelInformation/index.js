@@ -4,7 +4,7 @@ import { shortenNum } from '../../../../utils'
 
 const ChannelInformation = ({ data }) => {
   const { thumbnails, title, subscriberCount } = data ?? {}
-  const channelThumbnail = thumbnails.default
+  const channelThumbnail = thumbnails?.default
   return (
     <Box
       sx={{
@@ -21,8 +21,8 @@ const ChannelInformation = ({ data }) => {
       }}
     >
       <Avatar
-        src={channelThumbnail.url}
-        sx={{ height: channelThumbnail.height, width: channelThumbnail.width }}
+        src={channelThumbnail?.url}
+        sx={{ height: channelThumbnail?.height, width: channelThumbnail?.width }}
       />
       <Box>
         <Typography component="h1" variant="h4">
@@ -37,7 +37,12 @@ const ChannelInformation = ({ data }) => {
 }
 
 ChannelInformation.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    subscriberCount: PropTypes.string,
+    thumbnails: PropTypes.object,
+  }),
 }
 
 export default ChannelInformation

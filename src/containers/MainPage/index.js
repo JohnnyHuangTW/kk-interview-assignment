@@ -5,41 +5,44 @@ import { CHANNEL_NAME } from '../../constants'
 import { useYoutubeApi } from '../../hooks'
 import VideoDataTable from './components/VideoDataTable'
 import ChannelInformation from './components/ChannelInformation'
+import { ChannelInformationSkeleton, VideoDataTableSkeleton } from './components/Skeleton'
 
 const MainPage = () => {
   const { fetchChannelInfoByName, fetchSortedChannelVideos } = useYoutubeApi()
-
   const [pageToken, setPageToken] = useState('')
 
-  const {
-    data: channel,
-    isLoading,
-    isError,
-    isSuccess,
-    error,
-  } = useQuery('channel', () => fetchChannelInfoByName(CHANNEL_NAME))
+  const { data: channel, isLoading: isFetchingChannel } = useQuery('channel', () => fetchChannelInfoByName(CHANNEL_NAME))
 
-  const { data, isLoading: isFetchingVideos } = useQuery(
+  const { data: channelVideos, isLoading: isFetchingVideos } = useQuery(
     ['videos', pageToken], // refetch once pageToken has changed
     () => fetchSortedChannelVideos({ channelId: channel?.id, pageToken }),
     { enabled: !!channel?.id }, // trigger once channel has been fetched
   )
 
-  const { videoItems, pageInfo, nextPageToken, prevPageToken } = data ?? {}
+  const { videoItems, pageInfo, nextPageToken, prevPageToken } = channelVideos ?? {}
 
   return (
     <Container maxWidth="lg" sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
 
-      {channel && <ChannelInformation data={channel} />}
+      {isFetchingChannel ? (
+        <>
+          <ChannelInformationSkeleton />
+          <VideoDataTableSkeleton />
+        </>
+      ) : (
+        <>
+          <ChannelInformation data={channel} />
+          <VideoDataTable
+            itemsPerPage={10}
+            data={videoItems}
+            totalCount={pageInfo?.totalResults}
+            onNextPageClick={() => setPageToken(nextPageToken)}
+            onPrevPageClick={() => setPageToken(prevPageToken)}
+            isLoading={isFetchingVideos}
+          />
+        </>
+      )}
 
-      <VideoDataTable
-        itemsPerPage={10}
-        data={videoItems}
-        totalCount={pageInfo?.totalResults}
-        onNextPageClick={() => setPageToken(nextPageToken)}
-        onPrevPageClick={() => setPageToken(prevPageToken)}
-        isLoading={isFetchingVideos}
-      />
     </Container>
   )
 }

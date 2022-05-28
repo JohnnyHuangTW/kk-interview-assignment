@@ -20,8 +20,8 @@ const VideoDataTable = ({
   }, [totalCount])
 
   const handlePageChange = (newPage) => {
-    // prevent doing any actions while still fetching data
-    // because we need pageToken from GAPI to get the new data
+    // prevent doing any actions while still fetching data,
+    // since we need pageToken from GAPI to get the new data
     if (isLoading) return
 
     if (newPage > currentPage) onNextPageClick()
@@ -57,7 +57,18 @@ const VideoDataTable = ({
 }
 
 VideoDataTable.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      videoId: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      thumbnails: PropTypes.object.isRequired,
+      duration: PropTypes.string.isRequired,
+      publishedAt: PropTypes.string.isRequired,
+      viewCount: PropTypes.string.isRequired,
+      likeCount: PropTypes.string.isRequired,
+      commentCount: PropTypes.string.isRequired,
+    }),
+  ),
   isLoading: PropTypes.bool,
   totalCount: PropTypes.number,
   itemsPerPage: PropTypes.number,

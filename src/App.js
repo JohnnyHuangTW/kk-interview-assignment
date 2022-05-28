@@ -16,9 +16,12 @@ const App = () => {
       <CssBaseline />
       <Header />
 
+      {/* show sign in page when user hasn't signed in  */}
       {!isSignIn && <SignInPage />}
 
+      {/* render when user has signed in and the gapi client is ready */}
       {isSignIn && isClientReady && <MainPage />}
+
     </ThemeProvider>
   )
 }

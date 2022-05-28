@@ -1,12 +1,12 @@
-import React from 'react'
 import { Container, Box, Avatar, Typography, Link, Button, Paper } from '@mui/material'
 import { LockClockOutlined, Google } from '@mui/icons-material'
 import { useGoogleAuth } from '../../hooks'
+import { GITHUB_REPO_URL } from '../../constants'
 
 const Copyright = (props) => (
   <Typography variant="body2" color="text.secondary" align="center" {...props}>
     {'Copyright © '}
-    <Link color="inherit" href="https://mui.com/">
+    <Link color="inherit" href={GITHUB_REPO_URL}>
       Johnny Huang
     </Link>{' '}
     {new Date().getFullYear()}.
