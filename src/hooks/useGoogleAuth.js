@@ -22,10 +22,7 @@ const useGoogleAuth = () => {
   const loadClient = useCallback(() => {
     gapi.client.setApiKey(GAPI_API_KEY)
     return gapi.client.load(GAPI_DISCOVERY).then(
-      () => {
-        setIsClientReady(true)
-        setError('')
-      },
+      () => setIsClientReady(true),
       (err) => {
         console.error(err)
         setError(err.details)
@@ -59,8 +56,6 @@ const useGoogleAuth = () => {
 
         // listen for sign in status changes
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus)
-
-        setError('')
       })
       .catch((err) => {
         console.error(err)
@@ -73,7 +68,7 @@ const useGoogleAuth = () => {
       .getAuthInstance()
       .signIn({ scope: GAPI_SCOPE })
       .then(
-        () => setError(''),
+        () => console.log('login successfully'),
         () => {
           console.error('Login failed...')
           setError('Login failed...')

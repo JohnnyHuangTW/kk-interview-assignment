@@ -1,8 +1,10 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 const { gapi } = window
 
 const useYoutubeApi = () => {
+  const [error, setError] = useState('')
+
   // query channel basic info by channel name
   const fetchChannelInfoByName = useCallback((channelName) => {
     const requestOptions = {
@@ -29,7 +31,10 @@ const useYoutubeApi = () => {
           playlistId: relatedPlaylists.uploads,
         }
       })
-      .catch((err) => console.error('Cannot find the channel', err))
+      .catch((err) => {
+        console.error('Cannot find the channel', err)
+        setError('Cannot find the channel')
+      })
   }, [])
 
   // query video list by playlistId
@@ -66,7 +71,10 @@ const useYoutubeApi = () => {
             prevPageToken,
           }
         })
-        .catch((err) => console.error('Cannot find the playlist', err))
+        .catch((err) => {
+          console.error('Cannot find the playlist', err)
+          setError('Cannot find the playlist')
+        })
     },
     [],
   )
@@ -105,7 +113,10 @@ const useYoutubeApi = () => {
             prevPageToken,
           }
         })
-        .catch((err) => console.error('Cannot find the videos under this channel', err))
+        .catch((err) => {
+          console.error('Cannot find the videos under this channel', err)
+          setError('Cannot find the videos under this channel')
+        })
     },
     [],
   )
@@ -132,7 +143,10 @@ const useYoutubeApi = () => {
         })
         return dataList
       })
-      .catch(() => console.error('Cannot find the videos'))
+      .catch(() => {
+        console.error('Cannot find the videos')
+        setError('Cannot find the videos')
+      })
   }, [])
 
   // query channel videos by date with details
@@ -160,7 +174,8 @@ const useYoutubeApi = () => {
 
         return { ...channelVideos, videoItems: videoItemsWithDetail }
       } catch (err) {
-        console.error(err)
+        console.error('Failed fetching the videos', err)
+        setError('Failed fetching the videos')
         return null
       }
     },
@@ -169,6 +184,7 @@ const useYoutubeApi = () => {
 
   return useMemo(
     () => ({
+      error,
       fetchChannelInfoByName,
       fetchChannelVideosByDate,
       fetchVideosInfoByIds,
@@ -176,6 +192,7 @@ const useYoutubeApi = () => {
       fetchVideosByPlaylistId,
     }),
     [
+      error,
       fetchChannelInfoByName,
       fetchChannelVideosByDate,
       fetchSortedChannelVideos,
