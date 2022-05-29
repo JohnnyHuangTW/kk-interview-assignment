@@ -2,7 +2,7 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import { Alert, CssBaseline, Snackbar } from '@mui/material'
-import muiTheme from './theme'
+import theme from './theme'
 import { useGoogleAuth, useYoutubeApi } from './hooks'
 import { Header, MainPage, SignInPage } from './containers'
 import { Spinner } from './components'
@@ -18,6 +18,7 @@ const App = () => {
   }
 
   const closeSnackbar = (event, reason) => {
+    // do nothing when user click outside the snackbar
     if (reason === 'clickaway') {
       return
     }
@@ -33,7 +34,7 @@ const App = () => {
   }, [googleAuthError, youtubeApiError])
 
   return (
-    <ThemeProvider theme={muiTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
 
@@ -41,7 +42,7 @@ const App = () => {
       <Spinner open={!isGApiReady} />
 
       {/* show sign in page when user hasn't signed in  */}
-      {!isSignIn && <SignInPage />}
+      {isGApiReady && !isSignIn && <SignInPage />}
 
       {/* render when user has signed in and the gapi client is ready */}
       {isSignIn && isClientReady && <MainPage />}
@@ -55,6 +56,7 @@ const App = () => {
           {errorMessage}
         </Alert>
       </Snackbar>
+
     </ThemeProvider>
   )
 }
